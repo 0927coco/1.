@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자리 배치도</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* 뷰포트의 전체 높이 */
+            margin: 0; /* 기본 여백 제거 */
+        }
+        .container {
+            text-align: center;
+        }
+        table {
+            border-collapse: collapse;
+            table-layout: fixed; /* 셀의 크기를 고정 */
+            width: 400px; /* 테이블의 너비를 고정 */
+            height: 400px; /* 테이블의 높이를 고정 */
+            margin-top: 20px; /* 타이틀과 테이블 사이의 간격 조정 */
+        }
+        table, td {
+            border: 1px solid black;
+        }
+        td {
+            text-align: center;
+            width: 200px;  /* 셀의 너비 고정 */
+            height: 80px; /* 셀의 높이 고정 */
+            padding: 0;  /* 패딩을 제거하여 크기 고정 */
+        }
+        .color-none {
+            background-color: white;
+            cursor: pointer;
+        }
+        .color-red {
+            background-color: red;
+            color: white;
+            cursor: pointer;
+        }
+        .color-blue {
+            background-color: skyblue;
+            color: white;
+            cursor: pointer;
+        }
+        .color-gray {
+            background-color: gray;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>자리 배치도</h1>
+        <table>
+            <tr>
+                <td class="color-none" onclick="toggleSeat(this)">1</td>
+                <td class="color-none" onclick="toggleSeat(this)">2</td>
+                <td class="color-none" onclick="toggleSeat(this)">3</td>
+                <td class="color-none" onclick="toggleSeat(this)">4</td>
+                <td class="color-none" onclick="toggleSeat(this)">5</td>
+            </tr>
+            <tr>
+                <td class="color-none" onclick="toggleSeat(this)">6</td>
+                <td class="color-none" onclick="toggleSeat(this)">7</td>
+                <td class="color-none" onclick="toggleSeat(this)">8</td>
+                <td class="color-none" onclick="toggleSeat(this)">9</td>
+                <td class="color-none" onclick="toggleSeat(this)">10</td>
+            </tr>
+            <tr>
+                <td class="color-none" onclick="toggleSeat(this)">11</td>
+                <td class="color-none" onclick="toggleSeat(this)">12</td>
+                <td class="color-none" onclick="toggleSeat(this)">13</td>
+                <td class="color-none" onclick="toggleSeat(this)">14</td>
+                <td class="color-none" onclick="toggleSeat(this)">15</td>
+            </tr>
+            <tr>
+                <td class="color-none" onclick="toggleSeat(this)">16</td>
+                <td class="color-none" onclick="toggleSeat(this)">17</td>
+                <td class="color-none" onclick="toggleSeat(this)">18</td>
+                <td class="color-none" onclick="toggleSeat(this)">19</td>
+                <td class="color-none" onclick="toggleSeat(this)">20</td>
+            </tr>
+            <tr>
+                <td class="color-none" onclick="toggleSeat(this)">21</td>
+                <td class="color-none" onclick="toggleSeat(this)">22</td>
+                <td class="color-none" onclick="toggleSeat(this)">23</td>
+                <td class="color-none" onclick="toggleSeat(this)">24</td>
+                <td class="color-none" onclick="toggleSeat(this)">25</td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        function toggleSeat(cell) {
+            if (cell.classList.contains('color-none')) {
+                cell.classList.remove('color-none');
+                cell.classList.add('color-red');
+            } else if (cell.classList.contains('color-red')) {
+                cell.classList.remove('color-red');
+                cell.classList.add('color-blue');
+            } else if (cell.classList.contains('color-blue')) {
+                cell.classList.remove('color-blue');
+                cell.classList.add('color-gray');
+            } else if (cell.classList.contains('color-gray')) {
+                cell.classList.remove('color-gray');
+                cell.classList.add('color-none');
+            }
+        }
+    </script>
+</body>
+</html>
