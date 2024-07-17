@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메인 화면</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .table-container {
+            width: 800px;
+            height: 300px; /* 높이 조정 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        table {
+            width: 100%;
+            height: 100%;
+            border-collapse: collapse;
+            table-layout: fixed; /* 고정 레이아웃 사용 */
+        }
+
+        td {
+            border: 1px solid #000;
+            text-align: center;
+            padding: 8px;
+            width: 25%; /* 각 셀의 너비를 고정 */
+            height: 50px; /* 각 셀의 높이를 고정 */
+            box-sizing: border-box;
+        }
+
+        .merged-cell {
+            text-align: left;
+            padding-left: 8px;
+            background-color: #dfffdf; /* 연한 연두색 */
+            color: #000; /* 검정색 글씨 */
+            font-weight: bold; /* 두껍게 */
+            font-size: 1.5em; /* 글씨 크기 크게 */
+        }
+
+        .highlight {
+            background-color: #dfffdf; /* 연한 연두색 */
+            color: #000; /* 검정색 글씨 */
+            font-weight: bold; /* 두껍게 */
+        }
+
+        .dark-text {
+            color: #000; /* 검정색 글씨 */
+        }
+
+        .green-cell {
+            background-color: #32cd32; /* 진한 연두색 */
+            color: white; /* 흰색 글자 */
+            font-weight: bold; /* 두껍게 */
+        }
+
+        .white-cell {
+            background-color: white; /* 흰색 바탕 */
+            color: #000; /* 검정색 글씨 */
+        }
+
+        .button-cell {
+            background-color: #32cd32; /* 진한 연두색 */
+            color: white; /* 흰색 글자 */
+            font-weight: bold; /* 두껍게 */
+            box-shadow: inset 3px 3px 5px rgba(0, 0, 0, 0.2), /* 내부 그림자 */
+                        inset -3px -3px 5px rgba(255, 255, 255, 0.5); /* 내부 하이라이트 */
+            cursor: pointer; /* 클릭 커서 */
+        }
+    </style>
+    <script>
+        let clickCounts = {
+            'checkin-time': 0,
+            'checkout-destination': 0,
+            'return-time': 0,
+            'checkout-time': 0
+        };
+
+        function showTime(currentCellId, oldCellId, status) {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+
+            // 현재 시간을 표시할 셀
+            const currentCell = document.getElementById(currentCellId);
+            const oldCell = document.getElementById(oldCellId);
+
+            // 클릭 횟수 증가
+            clickCounts[currentCellId] += 1;
+
+            // 이전 시간을 (기존) 셀로 옮기기 (두 번째 클릭부터 실행)
+            if (clickCounts[currentCellId] >= 2) {
+                oldCell.innerText = currentCell.innerText;
+            }
+
+            // 새로운 시간을 현재 셀에 표시
+            currentCell.innerText = timeString;
+
+            // 현재 상태 업데이트
+            const statusCell = document.getElementById('current-status');
+            statusCell.innerText = status;
+        }
+    </script>
+</head>
+<body>
+    <div class="table-container">
+        <table>
+            <tbody>
+                <!-- 1st row with merged cell -->
+                <tr>
+                    <td colspan="4" class="merged-cell">자리번호</td>
+                </tr>
+                <!-- 5 rows of data -->
+                <tr>
+                    <td class="highlight">이름</td>
+                    <td></td>
+                    <td class="highlight">현재상태</td>
+                    <td id="current-status"></td> <!-- 상태 출력 셀 추가 -->
+                </tr>
+                <tr>
+                    <td class="green-cell">입실</td>
+                    <td class="green-cell">외출</td>
+                    <td class="green-cell">복귀</td>
+                    <td class="green-cell">퇴실</td>
+                </tr>
+                <tr>
+                    <td class="white-cell" id="checkin-time-old">입실 시간(기존)</td>
+                    <td class="white-cell" id="checkout-destination-old">외출 목적지(기존)</td>
+                    <td class="white-cell" id="return-time-old">복귀 시간(기존)</td>
+                    <td class="white-cell" id="checkout-time-old">퇴실 시간(기존)</td>
+                </tr>
+                <tr>
+                    <td class="button-cell" onclick="showTime('checkin-time', 'checkin-time-old', '입실')">입실 버튼</td>
+                    <td class="button-cell" onclick="showTime('checkout-destination', 'checkout-destination-old', '외출')">외출 버튼</td>
+                    <td class="button-cell" onclick="showTime('return-time', 'return-time-old', '입실')">복귀 버튼</td>
+                    <td class="button-cell" onclick="showTime('checkout-time', 'checkout-time-old', '퇴실')">퇴실 버튼</td>
+                </tr>
+                <tr>
+                    <td class="white-cell" id="checkin-time">입실 시간(현재)</td>
+                    <td class="white-cell" id="checkout-destination">외출 목적지(현재)</td>
+                    <td class="white-cell" id="return-time">복귀 시간(현재)</td>
+                    <td class="white-cell" id="checkout-time">퇴실 시간(현재)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
